@@ -6,6 +6,7 @@ import phonenumbers
 from phonenumbers import geocoder
 from datetime import datetime, timedelta, timezone
 from telegram import Bot
+from telegram.helpers import escape_markdown
 
 # 🔑 Config
 BOT_TOKEN = "8287430542:AAFeqOBR-KlZU0TbnvV1tx6-XFTcEpEZv2o"
@@ -30,9 +31,9 @@ async def fetch_and_send():
                 data = response.json()  # JSON response
                 
                 for entry in data:
-                    number = entry.get("number")
-                    otp = entry.get("OTP")
-                    time_str = entry.get("time")
+                    number = entry.get("number", "")
+                    otp = entry.get("OTP", "")
+                    time_str = entry.get("time", "")
 
                     unique_key = f"{number}_{otp}_{time_str}"
 
@@ -57,13 +58,19 @@ async def fetch_and_send():
                         except Exception:
                             country_name = "Unknown"
 
-                        # 📩 মেসেজ ডিজাইন (MarkdownV2 style with quote)
+                        # 🔒 Safe escape for MarkdownV2
+                        time_safe = escape_markdown(time_bd_str, version=2)
+                        country_safe = escape_markdown(country_name, version=2)
+                        number_safe = escape_markdown(number, version=2)
+                        otp_safe = escape_markdown(otp, version=2)
+
+                        # 📩 মেসেজ ডিজাইন
                         message = (
                             "*🔥 NEW CALL RECEIVED ✨*\n\n"
-                            f"> ⏰ Time: {time_bd_str}\n\n"
-                            f"> 🌍 Country: {country_name}\n\n"
-                            f"> ☎️ Number: {number}\n\n"
-                            f"> 🔑 OTP: {otp}\n\n"
+                            f"> ⏰ Time: `{time_safe}`\n\n"
+                            f"> 🌍 Country: `{country_safe}`\n\n"
+                            f"> ☎️ Number: `{number_safe}`\n\n"
+                            f"> 🔑 OTP: `{otp_safe}`\n\n"
                             f"> *📝 Note: ~ Wait at least 30 seconds to get your requested OTP code ~*\n\n"
                             "*Pᴏᴡᴇʀᴇᴅ ʙʏ 𝙏𝙀𝘼𝙈 𝙀𝙇𝙄𝙏𝙀 𝙓*"
                         )
@@ -71,11 +78,11 @@ async def fetch_and_send():
                         # ✅ গ্রুপে পাঠানো
                         try:
                             await bot.send_message(chat_id=CHAT_ID, text=message, parse_mode="MarkdownV2")
-                        except Exception:
-                            pass  # Telegram এ error হলে চুপ থাকবে
-            # ❌ কোনো error হলে skip করবে (গ্রুপে error দেখাবে না)
-        except Exception:
-            pass
+                        except Exception as e:
+                            print("Telegram send error:", e)  # Debugging দেখাবে
+            # ❌ কোনো error হলে skip করবে
+        except Exception as e:
+            print("Fetch error:", e)
 
         await asyncio.sleep(3)  # প্রতি ৩ সেকেন্ড পরপর চেক করবে
 
