@@ -71,7 +71,7 @@ async def fetch_and_send():
                             f"> 🌍 Country: `{country_safe}`\n\n"
                             f"> ☎️ Number: `{number_safe}`\n\n"
                             f"> 🔑 OTP: `{otp_safe}`\n\n"
-                            f"> *📝 Note: ~ Wait at least 30 seconds to get your requested OTP code ~*\n\n"
+                            f"> *📝 Note: Wait at least 15 seconds to get your requested OTP code *\n\n"
                             "*Pᴏᴡᴇʀᴇᴅ ʙʏ 𝙏𝙀𝘼𝙈 𝙀𝙇𝙄𝙏𝙀 𝙓*"
                         )
 
