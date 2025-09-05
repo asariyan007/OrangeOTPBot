@@ -57,20 +57,20 @@ async def fetch_and_send():
                         except Exception:
                             country_name = "Unknown"
 
-                        # 📩 মেসেজ ডিজাইন
+                        # 📩 মেসেজ ডিজাইন (MarkdownV2 style with quote)
                         message = (
-    "<b>🔥 NEW CALL RECEIVED ✨</b>\n\n"
-    f"> ⏰ Time: <code>{time_bd_str}</code>\n\n"
-    f"> 🌍 Country: <code>{country_name}</code>\n\n"
-    f"> ☎️ Number: <code>{number}</code>\n\n"
-    f"> 🔑 OTP: <code>{otp}</code>\n\n"
-    f"> <b>📝 Note: ~ Wait at least 30 seconds to get your requested OTP code ~</b>\n\n"
-    "<b>Pᴏᴡᴇʀᴇᴅ ʙʏ 𝙏𝙀𝘼𝙈 𝙀𝙇𝙄𝙏𝙀 𝙓</b>"
-)
+                            "*🔥 NEW CALL RECEIVED ✨*\n\n"
+                            f"> ⏰ Time: {time_bd_str}\n\n"
+                            f"> 🌍 Country: {country_name}\n\n"
+                            f"> ☎️ Number: {number}\n\n"
+                            f"> 🔑 OTP: {otp}\n\n"
+                            f"> *📝 Note: ~ Wait at least 30 seconds to get your requested OTP code ~*\n\n"
+                            "*Pᴏᴡᴇʀᴇᴅ ʙʏ 𝙏𝙀𝘼𝙈 𝙀𝙇𝙄𝙏𝙀 𝙓*"
+                        )
 
                         # ✅ গ্রুপে পাঠানো
                         try:
-                            await bot.send_message(chat_id=CHAT_ID, text=message, parse_mode="HTML")
+                            await bot.send_message(chat_id=CHAT_ID, text=message, parse_mode="MarkdownV2")
                         except Exception:
                             pass  # Telegram এ error হলে চুপ থাকবে
             # ❌ কোনো error হলে skip করবে (গ্রুপে error দেখাবে না)
@@ -82,6 +82,6 @@ async def fetch_and_send():
 async def main():
     await fetch_and_send()
 
-if __name__ == "__main__":
+if name == "main":
     import asyncio
     asyncio.run(main())
