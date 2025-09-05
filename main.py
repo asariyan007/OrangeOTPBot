@@ -82,6 +82,6 @@ async def fetch_and_send():
 async def main():
     await fetch_and_send()
 
-if name == "__main__":
+if __name__ == "__main__":
     import asyncio
     asyncio.run(main())
