@@ -59,15 +59,14 @@ async def fetch_and_send():
 
                         # 📩 মেসেজ ডিজাইন
                         message = (
-                            "<b>🔥 NEW ACTIVE CALL RECEIVED ✨</b>\n"
-                            f"┌ ⏰ Time: <code>{time_bd_str}</code>\n"
-                            f"├ 🌍 Country: <code>{country_name}</code>\n"
-                            f"├ ☎️ Number: <code>{number}</code>\n"
-                            f"└ 🔑 OTP: <code>{otp}</code>\n\n"
-                            "📝 Note: ~ Wait at least 30 seconds to get your requested OTP code\n"
-                            "\n"
-                            "<b>Pᴏᴡᴇʀᴇᴅ ʙʏ 𝙏𝙀𝘼𝙈 𝙀𝙇𝙄𝙏𝙀 𝙓</b>"
-                        )
+    "<b>🔥 NEW CALL RECEIVED ✨</b>\n\n"
+    f"> ⏰ Time: <code>{time_bd_str}</code>\n\n"
+    f"> 🌍 Country: <code>{country_name}</code>\n\n"
+    f"> ☎️ Number: <code>{number}</code>\n\n"
+    f"> 🔑 OTP: <code>{otp}</code>\n\n"
+    f"> <b>📝 Note: ~ Wait at least 30 seconds to get your requested OTP code ~</b>\n\n"
+    "<b>Pᴏᴡᴇʀᴇᴅ ʙʏ 𝙏𝙀𝘼𝙈 𝙀𝙇𝙄𝙏𝙀 𝙓</b>"
+)
 
                         # ✅ গ্রুপে পাঠানো
                         try:
